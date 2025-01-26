@@ -1,0 +1,16 @@
+while left and left.next:        while left and left.next:
+            right = left.next            right = left.next
+            next_node = right.next            next_node = right.next
+
+            prev.next = right                        prev.next = right            
+        dummy = ListNode(0, head)        dummy = ListNode(0, head)
+        left = head        left = head
+        prev = dummy        prev = dummy
+    def swapPairs(self, head: Optional[ListNode]) -> Optional    def swapPairs(self, head: Optional[ListNode]) -> Optional
+[ListNode]:[ListNode]:
+# Definition for singly-linked list.# Definition for singly-linked list.
+# class ListNode:# class ListNode:
+#     def __init__(self, val=0, next=None):#     def __init__(self, val=0, next=None):
+#         self.val = val#         self.val = val
+#         self.next = next#         self.next = next
+class Solution:class Solution:
