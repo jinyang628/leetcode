@@ -9,3 +9,7 @@ class Solution:class Solution:
         dummy = ListNode(0, head)        dummy = ListNode(0, head)
         left = head        left = head
         prev = dummy        prev = dummy
+        
+        while left and left.next:        while left and left.next:
+            right = left.next            right = left.next
+            next_node = right.next            next_node = right.next
