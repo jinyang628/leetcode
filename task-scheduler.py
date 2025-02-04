@@ -9,19 +9,13 @@ class Solution:
             heapq.heappush(heap, -freq)
         res = 0
         while heap or cooldown:
-            count = 0
             res += 1
-            for freq, time in cooldown:
-                if time > res:
-                    break
-                count += 1
+            if heap:
+                curr = heapq.heappop(heap)
+                curr += 1
+                if curr < 0:
+                    cooldown.append((curr, res + n))
+            while cooldown and cooldown[0][1] <= res:
+                freq, _ = cooldown.popleft()
                 heapq.heappush(heap, freq)
-            for _ in range(count):
-                cooldown.popleft()
-            if not heap:
-                continue
-            curr = heapq.heappop(heap)
-            curr += 1
-            if curr < 0:
-                cooldown.append((curr, res + n + 1))
         return res
