@@ -1,17 +1,16 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        candidates = list(set(candidates))
         res = []
-        def backtrack(idx: int, path: list[int], sumSoFar: int):
+        def helper(idx: int, sumSoFar: int, pathSoFar: list[int]):
             if idx == len(candidates):
                 if sumSoFar == target:
-                    res.append(path[:])
-                return 
+                    res.append(pathSoFar[:])
+                return
             if sumSoFar > target:
                 return
-            path.append(candidates[idx])
-            backtrack(idx, path, sumSoFar + candidates[idx])
-            path.pop()
-            backtrack(idx + 1, path, sumSoFar)
-        backtrack(0, [], 0)
+            pathSoFar.append(candidates[idx])
+            helper(idx, sumSoFar + candidates[idx], pathSoFar)
+            pathSoFar.pop()
+            helper(idx + 1, sumSoFar, pathSoFar)
+        helper(0, 0, [])
         return res
