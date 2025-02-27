@@ -1,0 +1,1 @@
+total_users = users["user_id"].nunique()
