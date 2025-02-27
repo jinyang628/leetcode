@@ -1,0 +1,1 @@
+df = products[(products['low_fats'] == 'Y') & (products['recyclable'] == 'Y')]
