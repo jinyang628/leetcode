@@ -8,16 +8,14 @@ class Solution:
     def getHeight(self, node: Optional[TreeNode]) -> int:
         if not node:
             return 0
-        return 1 + max(self.getHeight(node.left), self.getHeight(node.right))
+        left_height = self.getHeight(node.left)
+        right_height = self.getHeight(node.right)
+        return 1 + max(left_height, right_height)
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
         if not root:
             return True
-        left = self.isBalanced(root.left)
-        right = self.isBalanced(root.right)
-        if not left or not right:
-            return False
         left_height = self.getHeight(root.left)
         right_height = self.getHeight(root.right)
-        if abs(left_height - right_height) <= 1:
-            return True
-        return False
+        if not abs(left_height - right_height) <= 1:
+            return False
+        return self.isBalanced(root.left) and self.isBalanced(root.right)
