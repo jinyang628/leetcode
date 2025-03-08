@@ -1,20 +1,17 @@
+from collections import defaultdict
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        ans = 0
-        n = len(s)
-        for c in range(ord('A'), ord('Z') + 1):
-            c = chr(c)
-            i, j, replaced = 0, 0, 0
-            while j < n:
-                if s[j] == c:
-                    j += 1
-                elif replaced < k:
-                    j += 1
-                    replaced += 1
-                elif s[i] == c:
-                    i += 1
-                else:
-                    i += 1
-                    replaced -= 1
-                ans = max(ans, j - i)
-        return ans
+        res = left = right = 0
+        track = defaultdict(int)
+        track[s[right]] += 1
+        while right < len(s):
+            max_value = max(track.values())
+            if right - left + 1 - max_value <= k:
+                res = max(res, right - left + 1)
+                right += 1
+                if right < len(s):
+                    track[s[right]] += 1
+                continue
+            track[s[left]] -= 1
+            left += 1
+        return res
