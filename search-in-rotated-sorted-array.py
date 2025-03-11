@@ -5,15 +5,15 @@ class Solution:
         while left <= right:
             mid = left + (right - left) // 2
             if nums[mid] == target:
-                return mid 
-            elif nums[mid] >= nums[left]: # left half fully sorted, smaller than nums[mid]
+                return mid
+            if nums[left] <= nums[mid]:
                 if nums[left] <= target <= nums[mid]:
                     right = mid - 1
-                else: # look for bigger number
+                else:
                     left = mid + 1
-            else: # right half fully sorted, bigger than nums[mid]
+            elif nums[mid] <= nums[right]:
                 if nums[mid] <= target <= nums[right]:
                     left = mid + 1
-                else: # look for smaller number
+                else:
                     right = mid - 1
         return -1
