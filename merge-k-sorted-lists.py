@@ -4,24 +4,29 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+    def merge(self, arr1: Optional[ListNode], arr2: Optional[ListNode]) -> Optional[ListNode]:
         dummy = ListNode(0)
         copy = dummy
-        while True:
-            idx_of_smallest_head = -1
-            smallest_head_val = float('inf')
-            should_terminate = True
-            for i in range(len(lists)):
-                curr = lists[i]
-                if not curr:
-                    continue
-                should_terminate = False
-                if curr.val < smallest_head_val:
-                    idx_of_smallest_head = i
-                    smallest_head_val = curr.val
-            if should_terminate:
-                break
-            dummy.next = lists[idx_of_smallest_head]
-            lists[idx_of_smallest_head] = lists[idx_of_smallest_head].next
-            dummy = dummy.next
-        return copy.next
+        while arr1 and arr2:
+            if arr1.val <= arr2.val:
+                copy.next = arr1
+                arr1 = arr1.next
+            else:
+                copy.next = arr2
+                arr2 = arr2.next
+            copy = copy.next
+        if arr1:
+            copy.next = arr1
+        if arr2:
+            copy.next = arr2
+        return dummy.next
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        if len(lists) == 1:
+            return lists[0]
+        if len(lists) == 0:
+            return None
+        mid = len(lists) // 2
+        left = self.mergeKLists(lists[:mid])
+        right = self.mergeKLists(lists[mid:])
+        merged = self.merge(left, right)
+        return merged
