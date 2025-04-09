@@ -1,23 +1,36 @@
-from collections import deque
+from collections import deque, defaultdict
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         if endWord not in wordList:
             return 0
-        queue = deque([(endWord, 0)])
-        def differs_by_one(s1: str, s2: str) -> bool:
-            return sum(c1 != c2 for c1, c2 in zip(s1, s2)) == 1
-        wordList = set(wordList)
-        wordList.add(beginWord)
+        queue = deque([])
+        queue.append((1, beginWord))
+        visited = set()
+        wordList.append(beginWord)
+        neighbors = defaultdict(list) # key is the pattern, value is a list containing all the words that match that pattern
+        def is_neighbor(a: str, b: str) -> bool:
+            if len(a) != len(b):
+                return False
+            seen_diff = False
+            for i in range(len(a)):
+                if a[i] != b[i]:
+                    if seen_diff:
+                        return False
+                    seen_diff = True
+            return seen_diff
+        for word in wordList:
+            for i in range(len(word)):
+                pattern = word[:i] + "*" + word[i + 1:]
+                neighbors[pattern].append(word)
         while queue:
-            currWord, currStep = queue.popleft()
-            if currWord not in wordList:
+            dist, curr = queue.popleft()
+            if curr == endWord:
+                return dist 
+            if curr in visited:
                 continue
-            if currWord == beginWord:
-                return currStep + 1
-            wordList.remove(currWord)
-            for i in range(len(currWord)):
-                for c in 'abcdefghijklmnopqrstuvwxyz':
-                    candidateWord = currWord[:i] + c + currWord[i + 1:]
-                    if candidateWord in wordList:
-                        queue.append((candidateWord, currStep + 1))                    
+            visited.add(curr) 
+            for i in range(len(curr)):
+                pattern = curr[:i] + "*" + curr[i + 1:]
+                for word in neighbors[pattern]:
+                    queue.append((dist + 1, word))
         return 0
