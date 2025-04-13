@@ -6,12 +6,10 @@
 #         self.right = None
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        def helper(node: 'TreeNode') -> Optional['TreeNode']:
-            if not node:
-                return None
-            if (node.val <= p.val and q.val <= node.val) or (node.val <= q.val and p.val <= node.val):
-                return node
-            if node.val <= p.val:
-                return helper(node.right)
-            return helper(node.left)
-        return helper(root)
+        if q.val < p.val:
+            return self.lowestCommonAncestor(root, q, p)
+        if p.val <= root.val <= q.val:
+            return root 
+        if p.val < root.val and q.val < root.val:
+            return self.lowestCommonAncestor(root.left, p, q)
+        return self.lowestCommonAncestor(root.right, p, q)
