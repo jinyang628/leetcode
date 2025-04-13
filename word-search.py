@@ -4,14 +4,15 @@ class Solution:
         def dfs(r: int, c: int, idx: int) -> bool:
             if idx == len(word):
                 return True
-            if r < 0 or r >= row or c < 0 or c >= col:
+            if r < 0 or c < 0 or r >= row or c >= col:
+                return False
+            if board[r][c] == "*":
                 return False
             if board[r][c] != word[idx]:
                 return False
             tmp = board[r][c]
-            board[r][c] = "."
-            idx += 1
-            res = dfs(r - 1, c, idx) or dfs(r + 1, c, idx) or dfs(r, c - 1, idx) or dfs(r, c + 1, idx)
+            board[r][c] = "*"
+            res = dfs(r + 1, c, idx + 1) or dfs(r - 1, c, idx + 1) or dfs(r, c - 1, idx + 1) or dfs(r, c + 1, idx + 1)
             board[r][c] = tmp
             return res
         for i in range(row):
