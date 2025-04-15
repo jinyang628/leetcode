@@ -1,7 +1,5 @@
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-        # if text1[i] == text2[j], dp[i][j] = dp[i - 1][j - 1] + 1
-        # else, dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
         row, col = len(text1), len(text2)
         dp = [[0] * (col + 1) for _ in range(row + 1)]
         for i in range(1, row + 1):
