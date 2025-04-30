@@ -1,27 +1,27 @@
-from typing import Optional
 class ListNode:
-    def __init__(self, val: Optional[str]):
+    def __init__(self, val):
         self.val = val
         self.left: Optional[ListNode] = None
         self.right: Optional[ListNode] = None
 class TextEditor:
     def __init__(self):
-        self.head = ListNode(None)
-        self.curr = self.head
+        self.head = ListNode(None) 
+        self.curr = self.head       
     def addText(self, text: str) -> None:
         for char in text:
             node = ListNode(char)
-            node.left = self.curr
-            node.right = self.curr.right
-            if self.curr.right:
-                self.curr.right.left = node
+            right = self.curr.right
             self.curr.right = node
-            self.curr = node
+            node.left = self.curr
+            node.right = right
+            if right:
+                right.left = node
+            self.curr = self.curr.right
     def deleteText(self, k: int) -> int:
         count = 0
         for _ in range(k):
             if self.curr is self.head:
-                break
+                return count
             count += 1
             right = self.curr.right
             self.curr = self.curr.left
@@ -30,18 +30,20 @@ class TextEditor:
                 right.left = self.curr
         return count
     def cursorLeft(self, k: int) -> str:
-        while k and self.curr is not self.head:
-            k -= 1
+        for _ in range(k):
+            if self.curr is self.head:
+                break
             self.curr = self.curr.left
-        return self.get_left_text()
+        return self.get_left_characters()
     def cursorRight(self, k: int) -> str:
-        while k and self.curr.right:
-            k -= 1
-            self.curr = self.curr.right
-        return self.get_left_text()
-    def get_left_text(self) -> str:
-        stack = []
+        for _ in range(k):
+            if not self.curr.right:
+                break
+            self.curr = self.curr.right 
+        return self.get_left_characters()
+    def get_left_characters(self) -> str:
         copy = self.curr
+        stack = []
         for _ in range(10):
             if copy is self.head:
                 break
