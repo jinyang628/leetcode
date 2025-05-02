@@ -3,12 +3,11 @@ class Solution:
         if len(nums) == 1:
             return [nums[:]]
         res = []
-        length = len(nums)
-        for i in range(length):
-            popped = nums.pop(0)
-            permutations = self.permute(nums)
-            for p in permutations:
-                p.append(popped)
-            res.extend(permutations)
-            nums.append(popped)
+        for _ in range(len(nums)):
+            n = nums.pop(0)
+            perms = self.permute(nums)
+            for p in perms:
+                p.append(n)
+            res.extend(perms)
+            nums.append(n)
         return res
