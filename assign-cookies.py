@@ -2,12 +2,9 @@ class Solution:
     def findContentChildren(self, g: List[int], s: List[int]) -> int:
         g.sort()
         s.sort()
-        i = j = res = 0 
-        while i < len(g) and j <len(s):
-            if s[j] >= g[i]:
-                res += 1
-                i += 1
-                j += 1
-            else:
-                j += 1
-        return res
+        g_pointer = s_pointer = 0
+        while g_pointer < len(g) and s_pointer < len(s):
+            if s[s_pointer] >= g[g_pointer]:
+                g_pointer += 1
+            s_pointer += 1
+        return g_pointer
