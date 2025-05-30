@@ -6,13 +6,14 @@
 #         self.right = right
 class Solution:
     def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
-        track = {}
+        maxSoFar = (-1, None)
         def helper(node: Optional[TreeNode], level: int):
+            nonlocal maxSoFar
             if not node:
                 return 
-            if level not in track:
-                track[level] = node.val
+            if level > maxSoFar[0]:
+                maxSoFar = (level, node.val)
             helper(node.left, level + 1)
             helper(node.right, level + 1)
         helper(root, 0)
-        return track[max(track)]
+        return maxSoFar[1]
