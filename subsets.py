@@ -1,16 +1,15 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        nums.sort()
         res = []
-        def backtrack(lst: list[int], idx: int):
+        def backtrack(idx: int, path: list):
             if idx == len(nums):
-                res.append(lst[:])
-                return
-            lst.append(nums[idx])
-            backtrack(lst, idx + 1)
-            lst.pop()
-            while idx + 1 < len(nums) and nums[idx] == nums[idx + 1]:
+                res.append(path[:])
+                return 
+            path.append(nums[idx])
+            backtrack(idx + 1, path)
+            while idx < len(nums) - 1 and nums[idx + 1] == nums[idx]:
                 idx += 1
-            backtrack(lst, idx + 1)
-        backtrack([], 0)
+            path.pop()
+            backtrack(idx + 1, path)
+        backtrack(0, [])
         return res
