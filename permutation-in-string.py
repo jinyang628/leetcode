@@ -1,19 +1,16 @@
 from collections import Counter
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        if len(s2) < len(s1):
-            return False
         left = 0
         right = len(s1)
-        s1_counter = Counter(s1)
-        s2_counter = Counter(s2[:right])
+        curr = s2[left: right]
+        count = Counter(curr)
+        target = Counter(s1)
         while right < len(s2):
-            if s1_counter == s2_counter:
+            if count == target:
                 return True
-            s2_counter[s2[left]] -= 1
-            if not s2_counter[s2[left]]:
-                del s2_counter[s2[left]]
+            count[s2[left]] -= 1
             left += 1
-            s2_counter[s2[right]] += 1
+            count[s2[right]] += 1
             right += 1
-        return s1_counter == s2_counter
+        return count == target
