@@ -1,18 +1,12 @@
 class MyHashSet:
     def __init__(self):
-        self.n = 10000
-        self.arr = [[] for _ in range(self.n)]
+        self.track = [False] * (10 ** 6 + 1)
     def add(self, key: int) -> None:
-        bucket = key % self.n
-        if key not in self.arr[bucket]:
-            self.arr[bucket].append(key)
+        self.track[key] = True
     def remove(self, key: int) -> None:
-        bucket = key % self.n
-        if key in self.arr[bucket]:
-            self.arr[bucket].remove(key)
+        self.track[key] = False
     def contains(self, key: int) -> bool:
-        bucket = key % self.n
-        return key in self.arr[bucket]
+        return self.track[key]
 # Your MyHashSet object will be instantiated and called as such:
 # obj = MyHashSet()
 # obj.add(key)
