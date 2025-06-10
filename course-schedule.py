@@ -1,23 +1,21 @@
-import heapq
 from collections import defaultdict
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         prereq_to_block = defaultdict(list)
-        block_to_prereqs = defaultdict(list)
-        for block, prereq in prerequisites:
-            prereq_to_block[prereq].append(block)
-            block_to_prereqs[block].append(prereq)
-        heap = []
+        block_to_prereq = defaultdict(set)
+        for a, b in prerequisites:
+            prereq_to_block[b].append(a)
+            block_to_prereq[a].add(b)
+        stack = []
         for i in range(numCourses):
-            if not block_to_prereqs[i]:
-                heapq.heappush(heap, i)
-        res = 0
-        while heap:
-            curr = heapq.heappop(heap)
-            res += 1
-            blocked_courses = prereq_to_block[curr]
-            for c in blocked_courses:
-                block_to_prereqs[c].remove(curr)
-                if not block_to_prereqs[c]:
-                    heapq.heappush(heap, c)
-        return res == numCourses
+            if not block_to_prereq[i]:
+                stack.append(i)
+        visited = set()
+        while stack:
+            curr = stack.pop()
+            visited.add(curr)
+            for block in prereq_to_block[curr]:
+                block_to_prereq[block].remove(curr)
+                if not block_to_prereq[block]:
+                    stack.append(block)
+        return len(visited) == numCourses
