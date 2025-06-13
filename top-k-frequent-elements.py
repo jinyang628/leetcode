@@ -1,12 +1,9 @@
-from collections import Counter
+import heapq
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        track = Counter(nums)
+        count = Counter(nums)
         heap = []
-        for key, freq in track.items():
-            heapq.heappush(heap, (-freq, key))
-        res = []
-        for _ in range(k):
-            _, key = heapq.heappop(heap)
-            res.append(key)
-        return res
+        for val, qty in count.items():
+            heap.append((-qty, val))
+        heapq.heapify(heap)
+        return [heapq.heappop(heap)[1] for _ in range(k)]
