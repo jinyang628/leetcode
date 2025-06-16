@@ -1,21 +1,16 @@
 from collections import Counter
 class Solution:
     def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
-        track = Counter(hand)
-        unique = sorted(list(set(hand)))  
-        for num in unique:
-            if num not in track:
+        if len(hand) % groupSize:
+            return False
+        count = Counter(hand)
+        sorted_keys = sorted(count.keys())
+        for key in sorted_keys:
+            freq = count[key]
+            if not freq:
                 continue
-            curr = num
-            sizeSoFar = 0
-            candidatesToDelete = track[curr]
-            while curr in track and groupSize != sizeSoFar:
-                sizeSoFar += 1
-                track[curr] -= candidatesToDelete
-                if not track[curr]:
-                    del track[curr]
-                curr += 1
-            if sizeSoFar != groupSize:
-                return False
-            sizeSoFar = 0    
+            for i in range(groupSize):
+                count[key + i] -= freq
+                if count[key + i] < 0:
+                    return False
         return True
