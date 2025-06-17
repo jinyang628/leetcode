@@ -4,34 +4,38 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def merge(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+    def merge(self, a: Optional[ListNode], b: Optional[ListNode]) -> Optional[ListNode]:
+        if not a:
+            return b
+        if not b:
+            return a
         dummy = ListNode(0)
         copy = dummy
-        while l1 and l2:
-            if l1.val <= l2.val:
-                dummy.next = l1
-                l1 = l1.next
+        while a and b:
+            if a.val <= b.val:
+                copy.next = a
+                a = a.next
             else:
-                dummy.next = l2
-                l2 = l2.next
-            dummy = dummy.next
-        if l1:
-            dummy.next = l1
-        if l2:
-            dummy.next = l2
-        return copy.next
+                copy.next = b
+                b = b.next
+            copy = copy.next
+        if a:
+            copy.next = a
+        if b:
+            copy.next = b
+        return dummy.next 
     def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if not head or not head.next:
             return head
-        slow = head 
-        fast = head
+        slow = fast = head
         prev = None
         while fast and fast.next:
             prev = slow
-            slow = slow.next
             fast = fast.next.next
-        next_node = prev.next
-        prev.next = None
+            slow = slow.next
+        copy = slow
+        if prev:
+            prev.next = None
         left = self.sortList(head)
-        right = self.sortList(next_node)
+        right = self.sortList(copy)
         return self.merge(left, right)
