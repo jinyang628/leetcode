@@ -1,9 +1,9 @@
 class Solution:
     def numWaterBottles(self, numBottles: int, numExchange: int) -> int:
-        empty = res = 0
-        while numBottles > 0:
+        res = carry = 0
+        while numBottles:
             res += numBottles
-            empty += numBottles
-            numBottles = empty // numExchange 
-            empty = empty % numExchange
+            original = numBottles
+            numBottles = (numBottles + carry) // numExchange
+            carry = (original + carry) % numExchange
         return res
