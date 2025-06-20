@@ -1,17 +1,15 @@
-from collections import defaultdict
 class Solution:
     def luckyNumbers(self, matrix: List[List[int]]) -> List[int]:
         row, col = len(matrix), len(matrix[0])
-        mins = []
-        track = defaultdict(int)
+        mins = [float('inf')] * row
+        maxs = [0] * col
         for i in range(row):
             for j in range(col):
-                track[j] = max(track[j], matrix[i][j])
-            minElement = min(matrix[i])
-            mins.append([minElement] * col)
-        res = []
-        for i in range(row):
-            for j in range(col):
-                if mins[i][j] == track[j]:
-                    res.append(mins[i][j])
-        return res
+                mins[i] = min(mins[i], matrix[i][j])
+                maxs[j] = max(maxs[j], matrix[i][j])
+        total = []
+        track = set(maxs)
+        for num in mins:
+            if num in track:
+                total.append(num)
+        return total
