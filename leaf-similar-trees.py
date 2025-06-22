@@ -5,19 +5,15 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def getLeaves(self, node: Optional[TreeNode]) -> list:
+    def getLeaves(self, node: Optional[TreeNode]) -> list[int]:
         if not node:
             return []
         if not node.left and not node.right:
             return [node.val]
-        left = self.getLeaves(node.left)
-        right = self.getLeaves(node.right)
-        return left + right
+        left_leaves = self.getLeaves(node.left)
+        right_leaves = self.getLeaves(node.right)
+        return left_leaves + right_leaves
     def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
-        if not root1 and not root2:
-            return True
-        if not root1 or not root2:
-            return False
         one_leaves = self.getLeaves(root1)
         two_leaves = self.getLeaves(root2)
         if len(one_leaves) != len(two_leaves):
