@@ -1,18 +1,20 @@
 class Solution:
     def validPalindrome(self, s: str) -> bool:
-        left = 0
-        right = len(s) - 1
-        def isPalindrome(l: int, r: int) -> bool:
-            while l <= r:
-                if s[l] != s[r]:
-                    return False
-                l += 1
-                r -= 1
+        def isPalindrome(substring: str) -> bool:
+            if not substring:
+                return True
+            l, r = 0, len(substring) - 1
+            while l < r:
+                if substring[l] == substring[r]:
+                    l += 1
+                    r -= 1
+                    continue
+                return False
             return True
-        while left <= right:
-            if s[left] == s[right]:
-                left += 1
-                right -= 1
-                continue
-            return isPalindrome(left + 1, right) or isPalindrome(left, right -1)
+        left, right = 0, len(s) - 1
+        while left < right:
+            if s[left] != s[right]:
+                return isPalindrome(s[left: right]) or isPalindrome(s[left + 1: right + 1])
+            left += 1
+            right -= 1
         return True
