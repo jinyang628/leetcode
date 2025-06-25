@@ -1,17 +1,15 @@
 class Solution:
     def tribonacci(self, n: int) -> int:
-        if n == 0:
+        if not n:
             return 0
-        if n == 1:
-            return 1
-        if n == 2:
-            return 1
         first = 0
         second = 1
         third = 1
-        for _ in range(3,n + 1):
-            tmp = first + second + third
+        curr = 2
+        while curr < n:
+            new = first + second + third
             first = second
             second = third
-            third = tmp
+            third = new
+            curr += 1
         return third
