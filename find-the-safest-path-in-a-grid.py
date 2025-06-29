@@ -2,34 +2,36 @@ from collections import deque
 import heapq
 class Solution:
     def maximumSafenessFactor(self, grid: List[List[int]]) -> int:
-        queue = deque([])
         row, col = len(grid), len(grid[0])
+        mat = [[-1] * col for _ in range(row)]
+        queue = deque([]) # r, c, dist
         for i in range(row):
             for j in range(col):
                 if grid[i][j] == 1:
                     queue.append((i, j, 0))
-        grid = [[float('inf')] * col for _ in range(row)]
         while queue:
-            x, y, dist = queue.popleft()
-            if x < 0 or x >= row or y < 0 or y >= col:
-                continue 
-            if grid[x][y] != float('inf'):
-                continue 
-            grid[x][y] = dist
-            queue.append((x + 1, y, dist + 1))
-            queue.append((x - 1, y, dist + 1))
-            queue.append((x, y - 1, dist + 1))
-            queue.append((x, y + 1, dist + 1))
-        heap = [(-grid[0][0],0,0)]
+            r, c, dist = queue.popleft()
+            if r < 0 or r >= row or c < 0 or c >= col: # invalid
+                continue
+            if mat[r][c] != -1: # visited
+                continue
+            mat[r][c] = dist
+            for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                new_r, new_c = dr + r, dc + c
+                queue.append((new_r, new_c, dist + 1))
+        heap = [(-mat[0][0], 0, 0)]
         visited = set()
         while heap:
-            negative_dist, x, y = heapq.heappop(heap)
-            if x == row - 1 and y == col - 1:
+            negative_dist, r, c = heapq.heappop(heap)
+            if r == row - 1 and c == col - 1:
                 return -negative_dist
-            if (x, y) in visited:
+            if (r,c) in visited:
                 continue
-            visited.add((x,y))
-            for d_x, d_y in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-                new_x, new_y = x + d_x, y + d_y
-                if 0 <= new_x < row and 0 <= new_y < col:
-                    heapq.heappush(heap, (max(-grid[new_x][new_y], negative_dist), new_x, new_y))
+            visited.add((r, c))
+            for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                new_r, new_c = dr + r, dc + c
+                if new_r < 0 or new_r >= row or new_c < 0 or new_c >= col: # invalid
+                    continue
+                if (new_r, new_c) in visited:
+                    continue
+                heapq.heappush(heap, (-min(-negative_dist, mat[new_r][new_c]), new_r, new_c))
