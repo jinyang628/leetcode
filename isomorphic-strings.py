@@ -1,14 +1,14 @@
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
-        s_track = {}
-        t_track = {}
-        if len(s) != len(t):
-            return False
+        track = {}
+        mapped = set()
         for i in range(len(s)):
-            if s[i] not in s_track:
-                s_track[s[i]] = i
-            if t[i] not in t_track:
-                t_track[t[i]] = i
-            if s_track[s[i]] != t_track[t[i]]:
-                return False
+            if s[i] in track:
+                if track[s[i]] != t[i]:
+                    return False
+            else:
+                if t[i] in mapped:
+                    return False
+                track[s[i]] = t[i]
+                mapped.add(t[i])
         return True
