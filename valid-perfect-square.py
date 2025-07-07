@@ -2,14 +2,14 @@ class Solution:
     def isPerfectSquare(self, num: int) -> bool:
         if num == 1:
             return True
-        left = 1
-        right = num // 2
+        right = math.ceil(num // 2)
+        left = 1 
         while left <= right:
             mid = left + (right - left) // 2
-            square = mid ** 2
-            if square == num:
+            curr = mid ** 2
+            if curr == num:
                 return True
-            elif square < num:
+            elif curr < num:
                 left = mid + 1
             else:
                 right = mid - 1
