@@ -1,13 +1,23 @@
-from collections import defaultdict
 class Solution:
     def leastBricks(self, wall: List[List[int]]) -> int:
-        track = defaultdict(int) # key is the position, value is the number of edges seen
-        for arr in wall:
-            position = 0
-            for i in range(len(arr) - 1):
-                position += arr[i]
-                track[position] += 1
-        if track:
-            return len(wall) - max(track.values())
-        else:
+        lines = [set() for _ in range(len(wall))]
+        limit = sum(wall[0])
+        checking_set = set()
+        for i in range(len(wall)):
+            count = 0
+            for brick in wall[i]:
+                count += brick
+                if count == limit:
+                    continue
+                checking_set.add(count)
+                lines[i].add(count)
+        number_crossed = {}
+        for line in checking_set:
+            count = 0
+            for layer in lines:
+                if line in layer:
+                    count += 1
+            number_crossed[line] = count
+        if not number_crossed:
             return len(wall)
+        return len(wall) - max(number_crossed.values())
