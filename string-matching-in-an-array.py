@@ -1,0 +1,7 @@
+["mass","as","hero","superhero"]
+["leetcode","et","code"]
+["blue","green","bu"]
+["leetcoder","leetcode","od","hamlet","am"]
+["mass","as","hero","superhero", "xyzuiov", "uiknhdi", "peuish", "peusih", "xyzui", "ov"]
+["leetcodeeeeeeee","efse","esfe","fes", "sef","eff","se","ef", "sem", "you", "yu", "o", "pen", "si", "enp", "p", "e", "n", "goal", "ol", "lol", "al", "midgo"]
+["this", "is", "the", "weather", "fish"]
