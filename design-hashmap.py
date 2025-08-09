@@ -1,14 +1,12 @@
 class MyHashMap:
     def __init__(self):
-        self.track = [None for _ in range(10 ** 7)]
+        self.lst = [-1] * (10 ** 6 + 1)
     def put(self, key: int, value: int) -> None:
-        self.track[key] = value
+        self.lst[key] = value
     def get(self, key: int) -> int:
-        if self.track[key] is not None:
-            return self.track[key]
-        return -1
+        return self.lst[key]
     def remove(self, key: int) -> None:
-        self.track[key] = None
+        self.lst[key] = -1
 # Your MyHashMap object will be instantiated and called as such:
 # obj = MyHashMap()
 # obj.put(key,value)
