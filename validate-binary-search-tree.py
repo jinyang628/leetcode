@@ -5,11 +5,11 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    def isWithinBoundary(self, left: int, right: int, node: Optional[TreeNode]) -> bool:
+        if not node:
+            return True
+        if left < node.val < right:
+            return self.isWithinBoundary(left, node.val, node.left) and self.isWithinBoundary(node.val, right, node.right)
+        return False
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        def helper(left: int, right: int, node: Optional[TreeNode]):
-            if not node:
-                return True
-            if left >= node.val or node.val >= right:
-                return False
-            return helper(left, node.val, node.left) and helper(node.val, right, node.right)
-        return helper(float('-inf'), float('inf'), root)
+        return self.isWithinBoundary(float('-inf'), float('inf'), root)
