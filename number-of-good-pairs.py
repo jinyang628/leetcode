@@ -1,9 +1,8 @@
-from collections import defaultdict
 class Solution:
     def numIdenticalPairs(self, nums: List[int]) -> int:
-        track = defaultdict(int)
-        count = 0
-        for i in range(len(nums)):
-            track[nums[i]] += 1
-            count += (track[nums[i]] - 1)
-        return count
+        res = 0
+        for i in range(len(nums) - 1):
+            for j in range(i + 1, len(nums)):
+                if nums[i] == nums[j]:
+                    res += 1
+        return res
