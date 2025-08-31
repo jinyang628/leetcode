@@ -1,14 +1,9 @@
-class Solution:
-    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
-        potions.sort()
-        res =[]
-        for spell in spells:
-            left, right = 0, len(potions) - 1
-            while left <= right:
-                mid = left + (right - left) // 2
-                if potions[mid] * spell >= success:
-                    right = mid - 1
-                else:
-                    left = mid + 1
-            res.append(len(potions) - left)
-        return res
+def binarySearchForMinVal()
+    l, r = lower_bound, upper_bound
+    while l < r:
+        mid = (l + r)//2 #round down
+        if feasible(mid):
+            r = mid #check for possible smaller values that work
+        else:
+            l = mid + 1 #values smaller than or equal to mid do not work. Reduce search space to values greater than mid.
+    return l
