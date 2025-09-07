@@ -1,23 +1,8 @@
-class Solution:
-    def diffWaysToCompute(self, expression: str) -> List[int]:
-        res = []
-        # ans = []
-        for i in range(len(expression)):
-            oper = expression[i]
-            if oper == "+" or oper == "-" or oper == "*":
-                sub_str1 = expression[0 : i]
-                sub_str2 = expression[i + 1 : ]
-                s1 = self.diffWaysToCompute(sub_str1)
-                s2 = self.diffWaysToCompute(sub_str2)
-                for i in s1:
-                    for j in s2:
-                        if oper == "*":
-                            res.append(int(i) * int(j))
-                        if oper == "+":
-                            res.append(int(i) + int(j))
-                        if oper == "-":
-                            res.append(int(i) - int(j))
-        if len(res) == 0:
-            res.append(int(expression))
-        # print(res)
-        return res
+"2-1-1"
+"2*3-4*5"
+"99"
+"9-8+7-6+5-4"
+"0+0+0+0+0*0+0+0*0+0"
+"99*87-78+66*55-44+33"
+"12+34-56*78+90"
+"1+2-3+4-5+6-7+8-9+10"
