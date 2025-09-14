@@ -1,0 +1,1 @@
+0: nn=0 y_rem=4 penalty=4
