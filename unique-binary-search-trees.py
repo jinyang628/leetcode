@@ -1,21 +1,13 @@
-class Node:
-    def __init__(self, val: int, left: Optional["Node"], right: Optional["Node"]):
-        self.val = val
-        self.left = left
-        self.right = right
-class Solution:
-    def numTrees(self, n: int) -> int:
-        track = {}
-        def helper(l: int, r: int) -> int:
-            counter = 0
-            if l >= r:
-                return 1
-            if (l, r) in track:
-                return track[(l, r)]
-            for i in range(l, r):
-                left = helper(l, i)
-                right = helper(i + 1, r)
-                counter += left * right
-            track[(l, r)] = counter
-            return counter
-        return helper(1, n + 1)
+public class Solution {
+  public int numTrees(int n) {
+    int[] G = new int[n + 1];
+    G[0] = 1;
+    G[1] = 1;
+    for (int i = 2; i <= n; ++i) {
+      for (int j = 1; j <= i; ++j) {
+        G[i] += G[j - 1] * G[i - j];
+      }
+    }
+    return G[n];
+  }
+}
