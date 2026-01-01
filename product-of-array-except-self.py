@@ -1,12 +1,14 @@
-class Solution:
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
-        res = [1]
-        runningProduct = 1
-        for i in range(len(nums) - 1):
-            runningProduct *= nums[i]
-            res.append(runningProduct)
-        runningProduct = 1
-        for i in range(len(nums) - 2, -1, -1):
-            runningProduct *= nums[i + 1]
-            res[i] *= runningProduct
-        return res
+1class Solution(object):
+2    def productExceptSelf(self, nums):
+3        """
+456        """
+7        prefixProducts = [0] * len(nums)
+8        curr = 1
+9        for i in range(len(nums)):
+10            prefixProducts[i] = curr
+11            curr *= nums[i]
+12        curr = 1
+13        for i in range(len(nums) - 1, -1, -1):
+14            prefixProducts[i] *= curr
+15            curr *= nums[i]
+16        return prefixProducts
