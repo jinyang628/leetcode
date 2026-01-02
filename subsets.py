@@ -1,15 +1,5 @@
-class Solution:
-    def subsets(self, nums: List[int]) -> List[List[int]]:
-        res = []
-        def backtrack(idx: int, path: list):
-            if idx == len(nums):
-                res.append(path[:])
-                return 
-            path.append(nums[idx])
-            backtrack(idx + 1, path)
-            while idx < len(nums) - 1 and nums[idx + 1] == nums[idx]:
-                idx += 1
-            path.pop()
-            backtrack(idx + 1, path)
-        backtrack(0, [])
-        return res
+[1,2,3]
+[0]
+[-10, 10, -9, 9, -8, 8, -7, 7, -6, 6]
+[0, 2, 4, 6, 8, 10, -2, -4, -6, -8]
+[1, 3, 5, 7, 9, -1, -3, -5, -7, -9]
