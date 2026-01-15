@@ -1,12 +1,15 @@
-import heapq
-class Solution:
-    def lastStoneWeight(self, stones: List[int]) -> int:
-        for i in range(len(stones)):
-            stones[i] = -stones[i]
-        heapq.heapify(stones)
-        while len(stones) > 1:
-            first, second = heapq.heappop(stones), heapq.heappop(stones)
-            if first == second:
-                continue
-            heapq.heappush(stones, -abs(second - first))
-        return abs(stones[0]) if stones else 0
+1class Solution:
+2    def lastStoneWeight(self, stones: List[int]) -> int:
+3        for i in range(len(stones)):
+4            stones[i] = -stones[i]
+56        heapq.heapify(stones)
+78        while len(stones) > 1:
+9            largest = -heapq.heappop(stones)
+10            second_largest = -heapq.heappop(stones)
+11            diff = largest - second_largest
+12            if diff != 0:
+13                heapq.heappush(stones, -diff)
+1415        if len(stones):
+16            return -stones[0]
+17        return 0
+18
