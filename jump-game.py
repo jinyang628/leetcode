@@ -1,9 +1,10 @@
-class Solution:
-    def canJump(self, nums: List[int]) -> bool:
-        if len(nums) <= 1:
-            return True
-        lastIdxReached = len(nums) - 1
-        for i in range(len(nums) - 2, -1, -1):
-            if nums[i] + i >= lastIdxReached:
-                lastIdxReached = i
-        return lastIdxReached == 0
+1class Solution:
+2    def canJump(self, nums: List[int]) -> bool:
+3        last_idx = len(nums) - 1
+4        for i in range(len(nums) - 2, -1, -1):
+5            jump_dist = nums[i]
+6            max_target = i + jump_dist
+7            if max_target >= last_idx:
+8                last_idx = i
+910        return last_idx == 0
+11
