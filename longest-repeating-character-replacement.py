@@ -1,17 +1,22 @@
-from collections import defaultdict
-class Solution:
-    def characterReplacement(self, s: str, k: int) -> int:
-        res = left = right = 0
-        track = defaultdict(int)
-        track[s[right]] += 1
-        while right < len(s):
-            max_value = max(track.values())
-            if right - left + 1 - max_value <= k:
-                res = max(res, right - left + 1)
-                right += 1
-                if right < len(s):
-                    track[s[right]] += 1
-                continue
-            track[s[left]] -= 1
-            left += 1
-        return res
+1from collections import Counter
+2class Solution:
+3    def characterReplacement(self, s: str, k: int) -> int:
+4        left = right = maxSoFar = 0
+5        counter = Counter()
+6        mostFreqChar = None
+7        while right < len(s):
+8            counter[s[right]] += 1
+9            if mostFreqChar is None:
+10                mostFreqChar = s[right]
+11            elif counter[mostFreqChar] < counter[s[right]]:
+12                mostFreqChar = s[right]
+13            total_chars = right - left + 1
+14            num_other_chars = total_chars - counter[mostFreqChar]
+15            if num_other_chars <= k:
+16                maxSoFar = max(maxSoFar, right - left + 1)
+17            else:
+18                counter[s[left]] -= 1
+19                left += 1
+20            right += 1
+21        return maxSoFar
+22
