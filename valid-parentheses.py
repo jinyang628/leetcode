@@ -1,28 +1,18 @@
-class Solution:
-    def isValid(self, s: str) -> bool:
-        open_to_close = {
-            "{": "}",
-            "[": "]",
-            "(": ")",
-        }
-        close_to_open = {
-            "}": "{",
-            "]": "[",
-            ")": "("
-        }
-        i = 0
-        stack=[]
-        while i < len(s):
-            curr = s[i]
-            if curr in open_to_close:
-                stack.append(curr)
-            elif curr in close_to_open:
-                if not stack:
-                    return False
-                last = stack.pop()
-                if close_to_open[curr] != last:
-                    return False
-            else:
-                raise ValueError("Invalid input")
-            i += 1
-        return True if not stack else False
+1class Solution:
+2    def isValid(self, s: str) -> bool:
+3        stack = []
+4        for char in s:
+5            if char in ["(", "[", "{"]:
+6                stack.append(char)
+7            elif not stack:
+8                return False
+9            elif char == ")" and stack[-1] == "(":
+10                stack.pop()
+11            elif char == "]" and stack[-1] == "[":
+12                stack.pop()
+13            elif char == "}" and stack[-1] == "{":
+14                stack.pop()
+15            else:
+16                return False
+1718        return len(stack) == 0
+19
