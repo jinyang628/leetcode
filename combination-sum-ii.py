@@ -1,20 +1,16 @@
-class Solution:
-    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
-        candidates.sort()
-        res = []
-        def backtrack(idx: int, subset: list[int], total: int):
-            print(idx, subset, total)
-            if total == target:
-                res.append(subset[:])
-                return
-            elif total > target or idx >= len(candidates):
-                return 
-            subset.append(candidates[idx])
-            backtrack(idx + 1, subset, total + candidates[idx])
-            subset.pop()
-            current = candidates[idx]
-            while idx < len(candidates) - 1 and candidates[idx + 1] == current:
-                idx += 1
-            backtrack(idx + 1, subset, total)
-        backtrack(0, [], 0)
-        return res
+[10,1,2,7,6,1,5]
+8
+[2,5,2,1,2]
+5
+[2, 2, 2, 2, 3, 6, 7]
+9
+[1, 2, 2, 3, 3, 4, 5, 6, 7, 8, 9, 10]
+ 25
+[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,33,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,44,4,4,4,5,5,5,5,5,5,5,5,5,5,5,49,5,5,5,5,6,6,6,6]
+29
+[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+30
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+30
+ [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+ 15
