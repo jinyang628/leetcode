@@ -1,21 +1,21 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-class Solution:
-    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
-        track = {} # key is the level, value is the right most value
-        def helper(node: Optional[TreeNode], level: int):
-            if not node:
-                return
-            if level not in track:
-                track[level] = node.val
-            helper(node.right, level + 1)
-            helper(node.left, level + 1)
-        helper(root, 0)
-        res = []
-        for _, value in track.items():
-            res.append(value)
-        return res
+1# Definition for a binary tree node.
+2# class TreeNode:
+3#     def __init__(self, val=0, left=None, right=None):
+4#         self.val = val
+5#         self.left = left
+6#         self.right = right
+7class Solution:
+8    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+9        track = defaultdict(int)
+10        def dfs(node: Optional[TreeNode], level: int) -> None:
+11            if not node:
+12                return
+13            if level not in track:
+14                track[level] = node.val
+15            dfs(node.right, level + 1)
+16            dfs(node.left, level + 1)
+171819        dfs(root, 0)
+20        res = []
+21        for _, val in sorted(track.items()):
+22            res.append(val)
+23        return res
