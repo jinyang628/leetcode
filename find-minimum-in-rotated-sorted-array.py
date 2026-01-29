@@ -1,11 +1,38 @@
-class Solution:
-    def findMin(self, nums: List[int]) -> int:
-        left = 0
-        right = len(nums) - 1
-        while left < right:
-            mid = left + (right - left) // 2
-            if nums[mid] < nums[right]:
-                right = mid
-            else:
-                left = mid + 1
-        return nums[left]
+4 5 6 7 8 9 0 1 2 3
+m > r => l = m + 1
+4 5 6 7 8 9 0 1 2 3
+m < r => r = m
+4 5 6 7 8 9 0 1 2 3
+m < r => r = m
+4 5 6 7 8 9 0 1 2 3
+m > r => l = m + 1
+7 8 0 1 2 3 4 5 6
+r >= l => return l
+7 8 0 1 2 3 4 5 6
+m < r => r = m
+7 8 0 1 2 3 4 5 6
+m > r => l = m + 1
+7 8 0 1 2 3 4 5 6
+m < l => r = m
+7 8 0 1 2 3 4 5 6
+m < r => r = m
+7 8 0 1 2 3 4 5 6
+r >= l => return l
+8 0 1 2 3 4 5 6 7
+m < r => r = m
+8 0 1 2 3 4 5 6 7
+m < r => r = m
+8 0 1 2 3 4 5 6 7
+m < r => r = m
+8 0 1 2 3 4 5 6 7
+m > r => l = m + 1
+8 0 1 2 3 4 5 6 7
+r >=l => return l
+0 1 2 3 4
+m < r => r = m
+0 1 2 3 4
+m < r => r = m
+0 1 2 3 4
+m < r => r = m
+0 1 2 3 4
+r >= l => return l
