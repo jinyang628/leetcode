@@ -1,34 +1,35 @@
-class Solution:
-    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        left = top = 0
-        right = len(matrix[0]) - 1
-        bottom = len(matrix) - 1
-        res = []
-        while left <= right and top <= bottom:
-            original_left = left
-            while left <= right:
-                res.append(matrix[top][left])
-                left += 1
-            left = original_left
-            top += 1
-            original_top = top
-            while top <= bottom:
-                res.append(matrix[top][right])
-                top += 1
-            top = original_top
-            right -= 1
-            original_right = right
-            if not left <= right or not top <= bottom:
-                break
-            while right >= left:
-                res.append(matrix[bottom][right])
-                right -= 1
-            right = original_right
-            bottom -= 1
-            original_bottom = bottom
-            while bottom >= top:
-                res.append(matrix[bottom][left])
-                bottom -= 1
-            bottom = original_bottom
-            left += 1
-        return res
+1class Solution:
+2    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+3        left = top = 0
+4        right = len(matrix[0]) - 1
+5        bottom = len(matrix) - 1
+6        res = []
+7        while left <= right and top <= bottom:
+8            original_left = left
+9            while left <= right:
+10                res.append(matrix[top][left])
+11                left += 1
+12            left = original_left
+13            top += 1
+14            original_top = top
+15            while top <= bottom:
+16                res.append(matrix[top][right])
+17                top += 1
+18            top = original_top
+19            right -= 1
+20            original_right = right
+21            if not left <= right or not top <= bottom:
+22                break
+23            while right >= left:
+24                res.append(matrix[bottom][right])
+25                right -= 1
+26            right = original_right
+27            bottom -= 1
+28            original_bottom = bottom
+29            while bottom >= top:
+30                res.append(matrix[bottom][left])
+31                bottom -= 1
+32            bottom = original_bottom
+33            left += 1
+343536        return res
+373839
