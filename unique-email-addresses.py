@@ -1,17 +1,11 @@
-class Solution:
-    def numUniqueEmails(self, emails: List[str]) -> int:
-        track = set()
-        for email in emails:
-            splitted = email.split("@")
-            left, right = splitted[0], splitted[1]
-            left_lst = []
-            for char in left:
-                if char == ".":
-                    continue
-                if char == "+":
-                    break      
-                left_lst.append(char)
-            left = "".join(left_lst)
-            email = left + "@" + right
-            track.add(email)
-        return len(track)
+1from collections import Counter
+2class Solution:
+3    def numUniqueEmails(self, emails: List[str]) -> int:
+4        counter = Counter()
+5        for email in emails:
+6            local_name, domain = email.split("@")
+7            local_name = local_name.replace(".", "")
+8            local_name = local_name.split("+")[0]
+9            print(local_name, domain)
+10            counter[f"{local_name}@{domain}"] += 1
+11        return len(counter)
