@@ -1,18 +1,14 @@
-class Solution:
-    def mergeAlternately(self, word1: str, word2: str) -> str:
-        res = ""
-        use_first_word = True
-        i = j = 0
-        while i < len(word1) and j < len(word2):
-            if use_first_word:
-                res += word1[i]
-                i += 1
-            else:
-                res += word2[j]
-                j += 1
-            use_first_word = not use_first_word
-        if i < len(word1):
-            res += word1[i:]
-        if j < len(word2):
-            res += word2[j:]
-        return res
+1class Solution:
+2    def mergeAlternately(self, word1: str, word2: str) -> str:
+3        res = []
+4        word1_idx = word2_idx = 0
+5        while word1_idx < len(word1) and word2_idx < len(word2):
+6            res.append(word1[word1_idx])
+7            res.append(word2[word2_idx])
+8            word1_idx += 1
+9            word2_idx +=1
+10        if word1_idx < len(word1):
+11            res.append(word1[word1_idx:])
+12        if word2_idx < len(word2):
+13            res.append(word2[word2_idx:])
+1415        return "".join(res)
