@@ -1,15 +1,8 @@
-from collections import Counter
-class Solution:
-    def totalFruit(self, fruits: List[int]) -> int:
-        left = right = maxSoFar = 0
-        counter = Counter()
-        while right < len(fruits):
-            counter[fruits[right]] += 1
-            while len(counter) > 2:
-                counter[fruits[left]] -= 1
-                if not counter[fruits[left]]:
-                    del counter[fruits[left]]
-                left += 1
-            maxSoFar = max(maxSoFar, right - left + 1)
-            right += 1
-        return maxSoFar
+[1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2]
+[1,2,3,2,2,3,3,2,1,1,2,3,3,2,2,1,1,3]
+[7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7]
+[3,3,3,1,2,1,2,1,2,3,1,1,2,2,1,3,3,2,2,3,1,2]
+[4,5,4,5,4,5,4,5,4,5,4,5,4,5,4,5]
+[1,2,3,2,3,2,3,2,4,4,4,5,5,5,4,4,3,3,2,2]
+[8,9,8,9,8,7,9,8,9,8,9,8,9,7,8,9,8,9,8]
+[1,1,2,3,2,3,3,3,2,2,4,4,4,4,4,3,3,2,2,2]
