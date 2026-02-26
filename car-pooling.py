@@ -1,1 +1,6 @@
-[[8, 16, 20], [9, 18, 19], [7, 13, 16], [7, 13, 16], [8, 15, 18], [3, 17, 18], [6, 6, 18], [1, 2, 6], [5, 3, 7], [1, 16, 20], [3, 12, 20], [8, 18, 20], [5, 7, 17], [9, 14, 15], [7, 9, 17], [7, 12, 18], [6, 15, 19], [6, 18, 19], [8, 18, 20], [2, 12, 16]]
+3355. Zero Array Transformation I
+  1109. Corporate Flight Bookings
+  1094. Car Pooling
+  1854. Maximum Population Year
+  2381. Shifting Letters II
+  3356. Zero Array Transformation II
