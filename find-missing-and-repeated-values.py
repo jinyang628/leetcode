@@ -1,16 +1,16 @@
-class Solution:
-    def findMissingAndRepeatedValues(self, grid: List[List[int]]) -> List[int]:
-        row = col = len(grid)
-        totalSum = (1 + (row * col))*((row * col) / 2)
-        visited = set()
-        a = b = None
-        runningSum = 0
-        for i in range(row):
-            for j in range(col):
-                runningSum += grid[i][j]
-                if grid[i][j] in visited:
-                    a = grid[i][j]
-                else:
-                    visited.add(grid[i][j])
-        b = totalSum - (runningSum - a)
-        return [a, int(b)]
+class Solution {
+    public int[] findMissingAndRepeatedValues(int[][] grid) {
+        var n = grid.length * grid.length;
+        int currSum = 0, dup = 0;
+        var uniq = new HashSet<Integer>();
+        for(var row : grid)
+            for(var num : row)
+                if(!uniq.add(num))
+                    dup = num;
+                else
+                    currSum += num;
+        var expectedSum = (n * (n + 1)) / 2;
+        var missing = expectedSum - currSum;
+        return new int[]{dup, missing};
+    }
+}
