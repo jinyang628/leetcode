@@ -1,13 +1,10 @@
-class Solution:
-    def kthGrammar(self, n: int, k: int) -> int:
-        left = 0
-        right = 2 ** (n - 1)
-        curr = 0
-        for _ in range(n - 1):
-            mid = left + (right - left) // 2
-            if k <= mid:
-                right = mid
-            else:
-                left = mid + 1
-                curr = 0 if curr else 1
-        return curr
+// values
+// #1                 0
+// #2        0                   1
+// #3   0         1         1         0
+// #4 0   1     1   0     1   0     0   1
+// element 1-based index
+// #1                 1
+// #2        1                   2
+// #3   1         2         3         4
+// #4 1   2     3   4     5   6     7   8
