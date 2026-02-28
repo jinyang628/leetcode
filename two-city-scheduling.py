@@ -1,27 +1,16 @@
-import heapq
-class Solution:
-    def twoCitySchedCost(self, costs: List[List[int]]) -> int:
-        heap = [] # (negative_diff, favored_city (0,1), a_cost, b_cost)
-        for a, b in costs:
-            if a < b:
-                negative_diff = a - b
-                heapq.heappush(heap, (negative_diff, 0, a, b))
-            else:
-                negative_diff = b - a
-                heapq.heappush(heap, (negative_diff, 1, a, b))
-        a_costs = []
-        b_costs = []
-        max_length = len(costs) // 2
-        while heap:
-            _, favored_city, a_cost, b_cost = heapq.heappop(heap)
-            if not favored_city:
-                if len(a_costs) < max_length:
-                    a_costs.append(a_cost)
-                else:
-                    b_costs.append(b_cost)
-            else:
-                if len(b_costs) < max_length:
-                    b_costs.append(b_cost)
-                else:
-                    a_costs.append(a_cost)
-        return sum(a_costs) + sum(b_costs)
+1class Solution:
+2    def twoCitySchedCost(self, costs: List[List[int]]) -> int:
+3        for idx, cost in enumerate(costs):
+4            costs[idx] = [cost[0], cost[1], cost[1] - cost[0]]
+5        costs.sort(key=lambda x: x[2])
+6        res = 0
+7        left, right = 0, len(costs) -1
+8        while left <= right:
+9            if left != right:
+10                res += costs[left][1]
+11                res += costs[right][0]
+12            else:
+13                res += min(costs[left][0], costs[left][1])
+14            left += 1
+15            right -= 1
+16        return res
