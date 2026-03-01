@@ -1,9 +1,6 @@
-class Solution:
-    def diagonalSum(self, mat: List[List[int]]) -> int:
-        total = 0
-        size = len(mat)
-        if size % 2 == 1:
-            total -= mat[size // 2][size // 2]
-        for i in range(size):
-            total += (mat[i][i] + mat[i][size - i - 1])
-        return total
+public int diagonalSum(int[][] mat) {
+    int n = mat.length;
+    return IntStream.range(0, n)
+            .map(i -> mat[i][i] + mat[i][n-1-i])
+            .sum() - (n % 2 == 1 ? mat[n/2][n/2] : 0);
+}
