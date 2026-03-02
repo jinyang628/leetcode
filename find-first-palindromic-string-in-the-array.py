@@ -1,14 +1,8 @@
-class Solution:
-    def firstPalindrome(self, words: List[str]) -> str:
+class Solution(object):
+    def isPalindrome(self, s):
+        return s == s[::-1]
+    def firstPalindrome(self, words):
         for word in words:
-            left, right = 0, len(word) - 1
-            isPalindrome = True
-            while left < right:
-                if word[left] != word[right]:
-                    isPalindrome = False
-                    break
-                left += 1
-                right -= 1
-            if isPalindrome:
+            if self.isPalindrome(word):
                 return word
         return ""
