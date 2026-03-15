@@ -1,13 +1,16 @@
-from collections import defaultdict
-class Solution:
-    def maxUncrossedLines(self, nums1: List[int], nums2: List[int]) -> int:
-        track = defaultdict(int)
-        for i in range(len(nums1)):
-            for j in range(len(nums2)):
-                increment = 1 if nums1[i] == nums2[j] else 0
-                track[(i, j)] =  max(
-                    track[(i - 1, j - 1)] + increment,
-                    track[(i - 1, j)],
-                    track[(i, j - 1)]
-                )
-        return track[(len(nums1) - 1, len(nums2) - 1)]
+[1,4,2]
+[1,2,4]
+[2,5,1,2,5]
+[10,5,2,1,5,2]
+[1,3,7,1,7,5]
+[1,9,2,5,1]
+[1,2,4]
+[1,4,4]
+[2,5,6]
+[2,5,8,9,6]
+[3,3,1,3]
+[1,3,2,3,3,1]
+[1,1,2,1,2]
+[1,3,2,3,1]
+[3,1,4,1,1,3,5,1,2,2]
+[4,1,5,2,1,1,1,5,3,1,1,1,2,3,1,4,3,5,5,3,1,2,3,2,4,1,1,1,5,3]
