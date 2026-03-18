@@ -1,11 +1,14 @@
-class Solution:
-    def multiply(self, num1: str, num2: str) -> str:
-        sum = 0
-        multiplier_one = 1
-        for i in range(len(num2) - 1, -1, -1):
-            multiplier_two = 1
-            for j in range(len(num1) - 1, -1, -1):
-                sum += multiplier_one * multiplier_two * int(num2[i]) * int(num1[j])
-                multiplier_two *= 10
-            multiplier_one *= 10
-        return str(sum)
+1class Solution:
+2    def multiply(self, num1: str, num2: str) -> str:
+3        res = []
+4        outer_ten_multiplier = 1
+5        for outer_char in num1[::-1]:
+6            inner_ten_multiplier = 1
+7            for inner_char in num2[::-1]:
+8                res.append(
+9                    int(outer_char) * int(inner_char) * outer_ten_multiplier * inner_ten_multiplier
+10                )
+11                inner_ten_multiplier *= 10
+12            outer_ten_multiplier *= 10
+13        return str(sum(res))
+1415
