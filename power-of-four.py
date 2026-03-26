@@ -1,10 +1,8 @@
-class Solution {
-    public boolean isPowerOfFour(int n) {
-        if( n<= 0)
-        return false;
-        while(n%4 == 0){
-        n=n/4;
-      }
-      return n==1;
-    }
-}
+1class Solution:
+2    def isPowerOfFour(self, n: int) -> bool:
+3        if n <= 0:
+4            return False
+56        while n % 4 == 0:
+7            n //= 4
+8        return n == 1
+9
