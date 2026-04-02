@@ -1,14 +1,12 @@
-class Solution:
-    def removeCoveredIntervals(self, intervals: List[List[int]]) -> int:
-        intervals.sort(key=lambda x: (x[0], -x[1]))
-        print(intervals)
-        res = []
-        for interval in intervals:
-            if not res:
-                res.append(interval)
-                continue
-            last = res[-1]
-            if last[0] <= interval[0] and interval[1] <= last[1]:
-                continue
-            res.append(interval)
-        return len(res)
+1class Solution:
+2    def removeCoveredIntervals(self, intervals: List[List[int]]) -> int:
+3        intervals.sort(key=lambda x: (x[0], -x[1]))
+4        removed_intervals = set()
+5        for i in range(len(intervals) - 1):
+6            if i in removed_intervals:
+7                continue
+8            start, end = intervals[i]
+9            for j in range(i + 1, len(intervals)):
+10                if start <= intervals[j][0] and intervals[j][1] <= end:
+11                    removed_intervals.add(j)
+1213        return len(intervals) - len(removed_intervals)
