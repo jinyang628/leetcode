@@ -1,29 +1,27 @@
-class Solution:
-    def imageSmoother(self, img: List[List[int]]) -> List[List[int]]:
-        row, col = len(img), len(img[0])
-        prefixSum = [[0] * (col + 2) for _ in range(row + 2)]
-        for i in range(1, row + 2):
-            for j in range(1, col + 2):
-                if i < (row + 1) and j < (col + 1):
-                    prefixSum[i][j] = prefixSum[i - 1][j] + prefixSum[i][j - 1] - prefixSum[i - 1][j - 1] + img[i - 1][j - 1]
-                else:
-                    prefixSum[i][j] = prefixSum[i - 1][j] + prefixSum[i][j - 1] - prefixSum[i - 1][j - 1]
-        res = [[0] * col for _ in range(row)]
-        for i in range(row):
-            for j in range(col):
-                total = prefixSum[i + 2][j + 2]
-                if (i - 1) >= 0:
-                    total -= prefixSum[i - 1][j + 2]
-                if (j - 1) >= 0:
-                    total -= prefixSum[i + 2][j - 1]
-                if (i - 1) >= 0 and (j - 1) >= 0:
-                    total += prefixSum[i - 1][j - 1]
-                divisor = 0
-                for dx in [-1, 0, 1]:
-                    for dy in [-1, 0, 1]:
-                        curr_x, curr_y = i + dx, j + dy
-                        if curr_x < 0 or curr_x >= row or curr_y < 0 or curr_y >= col:
-                            continue
-                        divisor += 1
-                res[i][j] = math.floor(total / divisor)
-        return res
+1class Solution:
+2    def imageSmoother(self, img: List[List[int]]) -> List[List[int]]:
+3        row, col = len(img), len(img[0])
+4        prefixSums = [[0] * col for _ in range(row)]
+5        res = [[0] * col for _ in range(row)]
+6        for i in range(row):
+7            curr = 0
+8            for j in range(col):
+9                curr += img[i][j]
+10                prefixSums[i][j] = curr
+11        def calculateAverage(center_r: int, center_c: int) -> int:
+12            nonlocal row
+13            nonlocal col
+14            first_row = max(0, center_r - 1)
+15            last_row = min(row - 1, center_r + 1)
+16            first_col = max(0, center_c - 1)
+17            last_col = min(col - 1, center_c + 1)
+18            ans = 0 
+19            denominator = (last_row - first_row + 1) * (last_col - first_col + 1)
+20            for r in range(first_row, last_row + 1):
+21                ans += prefixSums[r][last_col] - (prefixSums[r][first_col - 1] if first_col > 0 else 0)
+22            ans //= denominator
+23            return ans
+2425        for i in range(row):
+26            for j in range(col):
+27                res[i][j] = calculateAverage(i, j)
+28        return res
