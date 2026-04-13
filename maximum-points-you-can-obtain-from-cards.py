@@ -1,15 +1,14 @@
-class Solution:
-    def maxScore(self, cardPoints: List[int], k: int) -> int:
-        startPrefixSums = [0]
-        for i in range(k):
-            startPrefixSums.append(cardPoints[i] + startPrefixSums[i])
-        endPrefixSums = [0]
-        for i in range(k):
-            endPrefixSums.append(cardPoints[-1 * (i + 1)] + endPrefixSums[i])
-        res = 0
-        for num_left in range(k + 1):
-            res = max(
-                res, 
-                startPrefixSums[num_left] + endPrefixSums[k - num_left]
-            )
-        return res
+1class Solution:
+2    def maxScore(self, cardPoints: List[int], k: int) -> int:
+3        if k == len(cardPoints):
+4            return sum(cardPoints)
+5        left_pointer = len(cardPoints) - k
+6        maxSoFar = curr = sum(cardPoints[left_pointer:])
+7        right_pointer = -1
+8        while right_pointer < k - 1:
+9            right_pointer += 1
+10            curr += cardPoints[right_pointer]
+11            curr -= cardPoints[left_pointer]
+12            left_pointer += 1
+13            maxSoFar = max(maxSoFar, curr)
+14        return maxSoFar
