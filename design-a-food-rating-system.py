@@ -1,25 +1,25 @@
-from collections import defaultdict
-class FoodRatings:
-    def __init__(self, foods: List[str], cuisines: List[str], ratings: List[int]):
-        self.cuisines_tracker = defaultdict(list) # key is the cuisine name, value is a maxHeap of (rating, food)
-        self.food_to_cuisine = defaultdict(str)
-        self.ratings_tracker = {} # key is the food name, value is the current rating of that food
-        for i in range(len(foods)):
-            self.ratings_tracker[foods[i]] = ratings[i]
-            self.food_to_cuisine[foods[i]] = cuisines[i]
-            heapq.heappush(self.cuisines_tracker[cuisines[i]], (-ratings[i], foods[i]))
-    def changeRating(self, food: str, newRating: int) -> None:
-        self.ratings_tracker[food] = newRating
-        cuisine = self.food_to_cuisine[food]
-        heapq.heappush(self.cuisines_tracker[cuisine], (-newRating, food))
-    def highestRated(self, cuisine: str) -> str:
-        while True:
-            rating, food = self.cuisines_tracker[cuisine][0]
-            if self.ratings_tracker[food] != -rating:
-                heapq.heappop(self.cuisines_tracker[cuisine])
-                continue
-            return food
-# Your FoodRatings object will be instantiated and called as such:
-# obj = FoodRatings(foods, cuisines, ratings)
-# obj.changeRating(food,newRating)
-# param_2 = obj.highestRated(cuisine)
+1class FoodRatings:
+23    def __init__(self, foods: List[str], cuisines: List[str], ratings: List[int]):
+4        self.curr_ratings = {} # key is food, value is rating
+5        self.cuisine_ratings = defaultdict(list) # key is cuisine, value is heap (rating, food)
+6        self.food_to_cuisine = {}
+7        for i in range(len(foods)):
+8            self.curr_ratings[foods[i]] = -ratings[i]
+9            self.food_to_cuisine[foods[i]] = cuisines[i]
+10            heapq.heappush(self.cuisine_ratings[cuisines[i]], (-ratings[i], foods[i]))
+1112    def changeRating(self, food: str, newRating: int) -> None:
+13        self.curr_ratings[food] = -newRating
+14        cuisine = self.food_to_cuisine[food]
+15        heapq.heappush(self.cuisine_ratings[cuisine], (-newRating, food))
+1617    def highestRated(self, cuisine: str) -> str:
+18        heap = self.cuisine_ratings[cuisine]
+19        while heap:
+20            rating, food = heapq.heappop(heap)
+21            if self.curr_ratings[food] != rating:
+22                continue
+23            heapq.heappush(heap, (rating, food))
+24            return food
+25262728# Your FoodRatings object will be instantiated and called as such:
+29# obj = FoodRatings(foods, cuisines, ratings)
+30# obj.changeRating(food,newRating)
+31# param_2 = obj.highestRated(cuisine)
