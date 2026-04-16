@@ -1,0 +1,9 @@
+"abcd"
+"cdef"
+3
+"krrgw"
+"zjxss"
+19
+"pxezla"
+"loewbi"
+25
