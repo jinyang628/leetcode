@@ -1,24 +1,17 @@
-class Solution {
-    public int minSubArrayLen(int s, int[] nums) {
-        int n = nums.length;
-        if (n == 0) {
-            return 0;
-        }
-        int ans = Integer.MAX_VALUE;
-        int[] sums = new int[n + 1]; 
-        for (int i = 1; i <= n; i++) {
-            sums[i] = sums[i - 1] + nums[i - 1];
-        }
-        for (int i = 1; i <= n; i++) {
-            int target = s + sums[i - 1];
-            int bound = Arrays.binarySearch(sums, target);
-            if (bound < 0) {
-                bound = -bound - 1;
-            }
-            if (bound <= n) {
-                ans = Math.min(ans, bound - (i - 1));
-            }
-        }
-        return ans == Integer.MAX_VALUE ? 0 : ans;
-    }
-}
+1class Solution:
+2    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+3        left = right = curr = 0
+4        minSoFar = float('inf')
+5        while left < len(nums) and right < len(nums):
+6            print(left, right, curr)
+7            curr += nums[right]
+8            if curr >= target:
+9                minSoFar = min(minSoFar, right - left + 1)
+10                curr -= nums[left]
+11                curr -= nums[right]
+12                left += 1
+13            else:
+14                right += 1
+15        if minSoFar == float('inf'):
+16            return 0
+17        return minSoFar
