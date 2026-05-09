@@ -1,12 +1,6 @@
 class Solution:
     def arraySign(self, nums: List[int]) -> int:
-        def signFunc(x: int) -> int:
-            if x < 0:
-                return -1
-            elif x > 0:
-                return 1
+        if 0 in nums:
             return 0
-        curr = 1
-        for num in nums:
-            curr *= num
-        return signFunc(curr)
+        prod = list(accumulate(nums, lambda x, y: x * y))
+        return 1 if prod[-1] > 0 else -1
