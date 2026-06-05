@@ -1,13 +1,8 @@
-class Solution:
-    def rob(self, nums: List[int]) -> int:
-        if len(nums) <= 2:
-            return max(nums)
-        def helper(arr: list[int]) -> int:
-            res = [0] * (len(arr) + 2)
-            for i in range(2, len(res)):
-                res[i] = max(res[i - 1], res[i - 2] + arr[i - 2])
-            return res[-1]
-        return max(
-            helper(nums[:-1]),
-            helper(nums[1:])
-        )
+[2,3,2]
+[1,2,3,1]
+[1,2,3]
+[1,2,1,1]
+[1,2,3,4,5,1,2,3,4,5]
+[200,3,140,20,10]
+[1]
+[94,40,49,65,21,21,106,80,92,81,679,4,61,6,237,12,72,74,29,95,265,35,47,1,61,397,52,72,37,51,1,81,45,435,7,36,57,86,81,72]
