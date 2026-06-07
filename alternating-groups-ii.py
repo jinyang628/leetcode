@@ -1,26 +1,15 @@
-from collections import deque
-class Solution:
-    def numberOfAlternatingGroups(self, colors: List[int], k: int) -> int:
-        res = left = right = 0
-        queue = deque([])
-        colors += colors[:k - 1]
-        while right < len(colors):
-            curr = colors[right]
-            if len(queue) == k:
-                res += 1
-                queue.popleft()
-                left += 1
-                if (k % 2 and curr == queue[0]) or ((not k % 2) and curr != queue[0]):
-                    queue.append(curr)
-                else:
-                    left = right
-                    queue = deque([curr])
-                right += 1
-            else:
-                if not queue or curr != queue[-1]:
-                    queue.append(curr)
-                else:
-                    left = right
-                    queue = deque([curr])
-                right += 1
-        return res + 1 if len(queue) == k else res
+1class Solution:
+2    def numberOfAlternatingGroups(self, colors: List[int], k: int) -> int:
+3        res = 0
+4        for i in range(k - 1):
+5            colors.append(colors[i])
+6        left = 0
+7        right = 1
+8        while right < len(colors):
+9            if colors[right] == colors[right - 1]:
+10                left = right
+11            if right - left + 1 == k:
+12                res += 1
+13                left += 1
+14            right += 1
+1516        return res
