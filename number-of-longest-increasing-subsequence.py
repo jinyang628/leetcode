@@ -1,20 +1,4 @@
-class Solution:
-    def findNumberOfLIS(self, nums: List[int]) -> int:
-        dp = [(1, 1)] * len(nums) # length, number adding up to the length
-        for i in range(1, len(nums)):
-            for j in range(i):
-                if nums[i] > nums[j]:
-                    if dp[i][0] > dp[j][0] + 1:
-                        continue
-                    elif dp[i][0] == dp[j][0] + 1:
-                        dp[i] = (dp[i][0], dp[i][1] + dp[j][1])
-                    else:
-                        dp[i] = (dp[j][0] + 1, dp[j][1])
-        maxSoFar, res = 0, 0
-        for length, number in dp:
-            if length > maxSoFar:
-                maxSoFar = length
-                res = number
-            elif length == maxSoFar:
-                res += number
-        return res
+[5, 0, 2, 9, 5, 2, 2, 6, 3, 7]
+[6, 5, 6, 5, 5, 2, 5, 1, 9, 4]
+[55, -53, 98, 14, 100, -4, 10, 98, -99, -35, 14, 55, 71, -67, -25, 62, -80, -60, -25, -84]
+[-59, -40, 87, 95, 4, 19, 35, 81, -50, -76, 49, -85, -51, -1, -14, 51, 59, -31, 85, -86]
