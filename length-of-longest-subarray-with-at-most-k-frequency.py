@@ -1,14 +1,13 @@
-from collections import defaultdict
-    def maxSubarrayLength(self, nums: List[int], k: int) -> int:
-        max_length = 0
-        frequency = defaultdict(int)
-        start = 0
-        for end, num in enumerate(nums):
-            frequency[num] += 1
-            # If the frequency of any element exceeds k, adjust the window
-            while frequency[num] > k:
-                frequency[nums[start]] -= 1
-                start += 1
-            # Update the maximum length of the subarray
-            max_length = max(max_length, end - start + 1)
-        return max_length
+1class Solution:
+2    def maxSubarrayLength(self, nums: List[int], k: int) -> int:
+3        tracker = defaultdict(int)
+4        left = right = best = 0
+5        while right < len(nums):
+6            tracker[nums[right]] += 1
+7            while tracker[nums[right]] > k:
+8                tracker[nums[left]] -= 1
+9                left += 1
+10            best = max(right - left + 1, best)
+11            right += 1
+12        return best
+1314
