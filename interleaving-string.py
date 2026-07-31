@@ -1,17 +1,19 @@
 1class Solution:
 2    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
-3        if len(s3) != (len(s1) + len(s2)):
+3        if len(s3) != len(s1) + len(s2):
 4            return False
-5        row, col = len(s1) + 1, len(s2) + 1
-6        res = [[False] * col for _ in range(row)]
-7        res[0][0] = True
-8        for i in range(1, row):
-9            res[i][0] = (s1[i - 1] == s3[i - 1]) and res[i - 1][0]
-10        for i in range(1, col):
-11            res[0][i] = (s2[i - 1] == s3[i - 1]) and res[0][i - 1]
-1213        for i in range(1, row):
-14            for j in range(1, col):
-15                s3_idx = i + j - 1
-16                res[i][j] = (res[i - 1][j] and s3[s3_idx] == s1[i - 1]) or (s3[s3_idx] == s2[j - 1] and res[i][j - 1])
-17        return res[-1][-1]
-1819
+5        cache = {}
+6        def helper(s1_idx: int, s2_idx: int, s3_idx: int) -> bool:
+7            if s1_idx == len(s1) and s2_idx == len(s2) and s3_idx == len(s3):
+8                return True
+9            if (s1_idx, s2_idx) in cache:
+10                return cache[(s1_idx, s2_idx)]
+11            res = False
+12            if s1_idx < len(s1) and s1[s1_idx] == s3[s3_idx]:
+13                res = res or helper(s1_idx + 1, s2_idx, s3_idx + 1)
+14            if s2_idx < len(s2) and s2[s2_idx] == s3[s3_idx]:
+15                res = res or helper(s1_idx, s2_idx + 1, s3_idx + 1)
+16            cache[(s1_idx, s2_idx)] = res
+17            return res
+18        return helper(0, 0, 0)
+19
