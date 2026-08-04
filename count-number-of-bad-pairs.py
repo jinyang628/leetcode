@@ -1,13 +1,14 @@
-from collections import defaultdict
-class Solution:
-    def countBadPairs(self, nums: List[int]) -> int:
-        """
-        """
-        track = defaultdict(int)  
-        good = 0
-        for i in range(len(nums)):
-            delta = nums[i] - i
-            good += track[delta]
-            track[delta] += 1  
-        length = len(nums)
-        return (length * (length - 1)) // 2 - good
+class Solution {
+    public long countBadPairs(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        long good = 0;
+        for(int i =0; i<nums.length; i++){
+            int num = nums[i];
+            int diff = num - i;
+            good += map.getOrDefault(diff, 0);
+            map.put(diff, map.getOrDefault(diff, 0)+1);
+        }
+        long total = ((long)nums.length*(nums.length-1))/2; 
+        return total - good;
+    }
+}
