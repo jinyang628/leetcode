@@ -1,9 +1,8 @@
 1class Solution:
 2    def findKthLargest(self, nums: List[int], k: int) -> int:
-3        heap = []
-4        for num in nums:
-5            heap.append(-num)
-6        heapq.heapify(heap)
-7        for _ in range(k):
-8            num = -heapq.heappop(heap)
-91011        return num
+3        for idx, num in enumerate(nums):
+4            nums[idx] = -num
+5        heapq.heapify(nums)
+6        for _ in range(k):
+7            res = -heapq.heappop(nums)
+8        return res
