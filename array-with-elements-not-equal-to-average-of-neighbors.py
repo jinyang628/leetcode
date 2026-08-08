@@ -1,14 +1,6 @@
-class Solution {
-    public int[] rearrangeArray(int[] nums) {
-        boolean a = nums[0]<nums[1];   //Using this boolean to decide the order of elements
-        for(int i=1;i<nums.length-1;i++){
-            if((a && nums[i]<nums[i+1]) || (!a && nums[i]>nums[i+1])){   //Swapping elements based on boolean 'a' and current order of adjacent elements
-                int t = nums[i];
-                nums[i] = nums[i+1];
-                nums[i+1] = t;
-            }
-            a=!a;    //Toggling the order of elements to increasing/decreasing at every iteration
-        }
-        return nums;
-    }
-}
+vector<int> v(nums.begin(), nums.end());
+  //  sort(v.begin(), v.end());
+    for(int i=0;i<n;i++) {
+        if (i-1>=0 && i+1<n && (v[i-1]+v[i+1])%2==0 && (v[i-1]+v[i+1])/2==v[i]) {
+            swap<int>(v[i], v[i-1]);
+    return v;
